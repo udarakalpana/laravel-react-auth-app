@@ -1,13 +1,17 @@
 import React, { useState } from "react";
 import SignInForm from "./SignInForm.tsx";
 import { ISignInState } from "../../utilities/types/signIn/SignIn";
-import axios from "axios";
+import {UserSignIn} from "../../utilities/api/auth/UserSignIn.ts";
+import {useDispatch} from "react-redux";
+import {AppDispatch} from "../../store.tsx";
 
 const SignIn: React.FC = () => {
     const [signDetails, setSignDetails] = useState<ISignInState>({
         email: "",
         password: "",
     });
+    // need to define type definition for dispatching method
+    const dispatch = useDispatch<AppDispatch>()
 
     const handleInputField = (
         event: React.ChangeEvent<HTMLInputElement>,
@@ -20,15 +24,10 @@ const SignIn: React.FC = () => {
         }));
     };
 
-    const handleSubmit = async (event: React.FormEvent): Promise<void> => {
+    const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault()
 
-        // return await axios.get('/sanctum/csrf-cookie').then(res => {
-        //     const response = axios.post('http://127.0.0.1:8000/api/sign-in', signDetails)
-        //
-        //     console.log(response)
-        // });
-
+        await dispatch(UserSignIn({signDetails}));
     };
 
     return (
