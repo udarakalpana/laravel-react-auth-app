@@ -10,6 +10,7 @@ interface IAuthPayload {
 const initialState: IAuthInitialState = {
     token: "",
     user_id: "",
+    user_role: 0,
     isAuthenticated: false,
     isLoading: false,
 };
@@ -44,8 +45,11 @@ const setPayloadValuesIntoStore = (state: IAuthInitialState, payload: IAuthPaylo
         return
     }
 
-    state.user_id = payload.user_id
-    state.token = payload.user_token;
+    console.log({payload})
+
+    state.user_id = payload.userId
+    state.token = payload.token;
+    state.user_role = payload.userRole;
     state.isAuthenticated = true;
     state.isLoading = false;
 }
