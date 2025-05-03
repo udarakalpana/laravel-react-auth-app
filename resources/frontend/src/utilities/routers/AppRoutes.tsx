@@ -8,6 +8,7 @@ import {
     checkUserTokenNotEmpty,
 } from "./CheckUserAuthentication.ts";
 import { Navigate } from "react-router-dom";
+import Products from "../../components/products/Products.tsx";
 
 interface RootState {
     auth: {
@@ -31,7 +32,7 @@ const AppRoutes: React.FC = () => {
                     checkUserAuthentication(isAuthenticated) &&
                     checkUserTokenNotEmpty(token) &&
                     checkUserIsAdmin(user_role) ? (
-                        <div>Dashboard</div>
+                        <Products />
                     ) : (
                         <Navigate to="/" replace />
                     )
