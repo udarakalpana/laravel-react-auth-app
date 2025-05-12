@@ -1,17 +1,27 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import SignInForm from "./SignInForm.tsx";
 import { ISignInState } from "../../utilities/types/signIn/SignIn";
-import {UserSignIn} from "../../utilities/api/auth/UserSignIn.ts";
-import {useDispatch} from "react-redux";
-import {AppDispatch} from "../../store.tsx";
+import { UserSignIn } from "../../utilities/api/auth/UserSignIn.ts";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../store.tsx";
+import { useNavigate } from "react-router";
 
 const SignIn: React.FC = () => {
     const [signDetails, setSignDetails] = useState<ISignInState>({
         email: "",
         password: "",
     });
-    // need to define type definition for dispatching method
-    const dispatch = useDispatch<AppDispatch>()
+    const dispatch = useDispatch<AppDispatch>();
+    const navigate = useNavigate();
+    const { user_role, isAuthenticated } = useSelector(
+        (state: RootState) => state.auth,
+    );
+
+    useEffect(() => {
+        if (isAuthenticated && user_role === 1) {
+            navigate("/dashboard");
+        }
+    }, [user_role, isAuthenticated, navigate]);
 
     const handleInputField = (
         event: React.ChangeEvent<HTMLInputElement>,
@@ -25,9 +35,9 @@ const SignIn: React.FC = () => {
     };
 
     const handleSubmit = async (event: React.FormEvent) => {
-        event.preventDefault()
+        event.preventDefault();
 
-        await dispatch(UserSignIn({signDetails}));
+        await dispatch(UserSignIn({ signDetails }));
     };
 
     return (

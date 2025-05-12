@@ -9,15 +9,8 @@ import {
 } from "./CheckUserAuthentication.ts";
 import { Navigate } from "react-router-dom";
 import Products from "../../components/products/Products.tsx";
+import { RootState } from "../../store.tsx";
 
-interface RootState {
-    auth: {
-        token: string;
-        user_id: string | null;
-        user_role: number;
-        isAuthenticated: boolean;
-    };
-}
 const AppRoutes: React.FC = () => {
     const { token, user_role, isAuthenticated } = useSelector(
         (state: RootState) => state.auth,
