@@ -20,6 +20,7 @@ class GetProductDetails
     private function getProductAllDetails(): Collection
     {
         return DB::table('products')->select([
+            'id',
             'product_name',
             'product_description',
             'product_price',
