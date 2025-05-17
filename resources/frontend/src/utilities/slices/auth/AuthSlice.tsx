@@ -40,13 +40,13 @@ const setPayloadValuesIntoStore = (
         return;
     }
 
-    console.log({ payload });
-
     state.user_id = payload.user_id;
     state.token = payload.user_token;
     state.user_role = payload.user_role;
     state.isAuthenticated = true;
     state.isLoading = false;
+
+    localStorage.setItem('token', payload.user_token);
 };
 
 export default authSlice.reducer;

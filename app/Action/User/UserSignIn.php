@@ -21,7 +21,7 @@ class UserSignIn
         if ($this->isValidateUserCredentials($validatedUserSignInRequest['email'], $validatedUserSignInRequest['password'], $user)) {
             return [
                 'user_id' => $user->id,
-                'user_role' => 1,
+                'user_role' => $user->role === 2 ,
                 'user_token' => $user->createToken('testToken', ['server:admin'])->plainTextToken,
             ];
         }
