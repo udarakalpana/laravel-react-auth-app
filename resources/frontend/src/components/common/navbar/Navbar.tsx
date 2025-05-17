@@ -1,6 +1,11 @@
 import React from "react";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../store.tsx";
 
 const Navbar: React.FC = () => {
+    const cartCount = useSelector(
+        (state: RootState) => state.cart.cartItems.length,
+    );
     return (
         <nav className="backdrop-blur-md bg-white/80 shadow-md sticky top-0 z-10">
             <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
@@ -21,11 +26,11 @@ const Navbar: React.FC = () => {
                         Products
                     </a>
                     <a href="#" className="relative group">
-                        <span className="text-gray-700 text-base font-medium hover:text-indigo-600 transition-all">
-                            Cart
-                        </span>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 text-gray-700 group-hover:text-indigo-600 transition-all">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 3h1.386c.51 0 .96.316 1.138.796l.729 1.942M6.75 7.5h12.184a.75.75 0 01.733.944l-1.615 6.462a1.5 1.5 0 01-1.452 1.094H8.25m-3-8.5l-.324-.865M8.25 16.5a1.5 1.5 0 100 3 1.5 1.5 0 000-3zm8.25 0a1.5 1.5 0 100 3 1.5 1.5 0 000-3z" />
+                        </svg>
                         <span className="bg-indigo-500 text-xs text-white rounded-full px-2 py-0.5 absolute -top-2 -right-4 opacity-75 group-hover:opacity-100">
-                            2
+                            {cartCount}
                         </span>
                     </a>
                     <a
