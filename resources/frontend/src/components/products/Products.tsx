@@ -17,8 +17,6 @@ const Products: React.FC = () => {
         }
     };
 
-    console.log(productDetails);
-
     return (
         <div className="min-h-screen">
             <Navbar />
