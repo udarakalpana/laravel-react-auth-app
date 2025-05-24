@@ -1,6 +1,10 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { CartState, IProductDetails } from "../../types/product/product";
 
+const findItemById = (state: CartState, id: string) => {
+    return state.cartItems.find(item => item.id === id);
+}
+
 const initialState: CartState = {
     cartItems: [],
 };
@@ -25,11 +29,41 @@ const cartSlice = createSlice({
         //         (item) => item.id !== action.payload
         //     );
         // },
-        clearCart(state) {
-            state.cartItems = [];
+        // clearCart(state) {
+        //     state.cartItems = [];
+        // },
+        incrementQuantity(state, action: PayloadAction<object>) {
+            const {itemId, quantity} = action.payload;
+
+            console.log({ quantity });
+
+            const existing = findItemById(state, itemId);
+            if (existing) {
+                existing.quantity = quantity;
+            }
+        },
+        incrementQuantityByButton (state, action: PayloadAction<object>) {
+            const {itemId, quantity} = action.payload;
+
+            console.log({ quantity });
+
+            const existing = findItemById(state, itemId);
+            if (existing) {
+                existing.quantity += quantity;
+            }
+        },
+        decrementQuantity(state, action: PayloadAction<string>) {
+            const existing = findItemById(state, action.payload);
+            if (existing) {
+                if (existing.quantity > 1) {
+                    existing.quantity -= 1;
+                } else {
+                    state.cartItems = state.cartItems.filter(item => item.id !== action.payload);
+                }
+            }
         },
     },
 });
 
-export const { addToCart, clearCart } = cartSlice.actions;
+export const { addToCart, incrementQuantity, incrementQuantityByButton, decrementQuantity } = cartSlice.actions;
 export default cartSlice.reducer;

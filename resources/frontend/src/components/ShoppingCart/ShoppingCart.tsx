@@ -14,7 +14,7 @@ const ShoppingCart: React.FC = () => {
                 {cartItems.length > 0 ? (
                     <ul className="divide-y divide-gray-200">
                         {cartItems.map((item) => (
-                            <ShoppingCartItem item={item} />
+                            <ShoppingCartItem key={item.id} item={item} />
                         ))}
                     </ul>
                 ) : (
