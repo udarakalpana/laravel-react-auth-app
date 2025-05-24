@@ -14,12 +14,12 @@ const Navbar: React.FC = () => {
                     ModernShop
                 </span>
                 <div className="flex gap-6 items-center">
-                    <a
-                        href="#"
+                    <Link
+                        to="/dashboard"
                         className="text-gray-700 text-base font-medium hover:text-indigo-600 transition-all"
                     >
                         Home
-                    </a>
+                    </Link>
                     <a
                         href="#"
                         className="text-gray-700 text-base font-medium hover:text-indigo-600 transition-all"
